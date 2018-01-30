@@ -6,6 +6,9 @@ from django.db import models
 
 # Create your models here.
 
+
+
+
 class UserProfile(AbstractUser):
     nick_name = models.CharField(max_length=50, verbose_name="昵称", default="")
     birthday = models.DateField(verbose_name="生日", null=True, blank=True)
