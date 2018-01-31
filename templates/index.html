@@ -6,29 +6,17 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-<div class="app">
-    <h1>this is index</h1>
-</div>
-<div id="time"></div>
-<div id="date"></div>
-<script src="/static/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-            function timereset() {
-                var datetime = new Date();
-                var hour = datetime.getHours() < 10 ? "0 " + datetime.getHours() : datetime.getHours();
-                var min = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                var sec = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                var year = datetime.getFullYear();
-                var mon = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                var day = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                $("#time").html(hour + ":" + min + "<span class='second'> " + sec + "</span>");
-                $("#date").html(year + "年" + mon + "月" + day + "日");
-            }
 
-            setInterval(timereset, 1000);
-        }
-    );
-</script>
+{% if request.user.is_authenticated %} {#登录成功#}
+    <div>
+        欢迎{{ request.user }}登录!!!
+    </div>
+    {% else %}{#登录失败#}
+    <div>
+        <p><a href="/login">登录</a></p>
+        <p><a href="/register">注册</a></p>
+    </div>
+{% endif %}
+<script src="/static/js/jquery-3.3.1.min.js"></script>
 </body>
 </html>
