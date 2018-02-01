@@ -1,10 +1,11 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import View
 # Create your views here.
-from users.forms import LoginForm
+from users.forms import LoginForm, RegisterForm
 from users.models import UserProfile
 
 
@@ -49,7 +50,22 @@ class UserView(View):  # 新的login view. 继承了View类,它里面实现get p
             else:
                 return render(request, "login.html", {'msg': "用户名或密码错误"})
         else:
-            return render(request, "login.html", {'msg': "用户名或密码不符合规则", "login_form": login_form}) # 将django的form验证失败内置信息发给前端展示用
+            return render(request, "login.html",
+                          {'msg': "用户名或密码不符合规则", "login_form": login_form})  # 将django的form验证失败内置信息发给前端展示用
 
 
+class RegisterView(View):
+    def get(self, request):
+        register_form = RegisterForm()#实例化register表单
+        return render(request, 'register.html', {'register_form': register_form})
 
+    def post(self, request):
+        register_form = RegisterForm()
+        if register_form.is_valid():
+            user_name = request.POST.get("email", "")  # 字典取值,如果无,赋值为空
+            pass_word = request.POST.get("password", "")
+            user_profile = UserProfile()
+            user_profile.username = user_name
+            user_profile.email = user_name
+            user_profile.password = make_password(pass_word) #密码加密存储
+            user_profile.save()
