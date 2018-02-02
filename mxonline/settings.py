@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'operation',
     'xadmin',
     'crispy_forms',
+    "captcha",
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
@@ -131,3 +132,9 @@ STATICFILES_DIRS = (
 )
 
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+EMAIL_HOST = "smtp.sina.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'lanny@sina.com'
+EMAIL_HOST_PASSWORD = '123456!'
+EMAIL_USE_TLS = False
+EMAIL_FROM = "lanny@sina.com"
