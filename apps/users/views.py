@@ -6,7 +6,8 @@ from django.shortcuts import render
 from django.views.generic import View
 # Create your views here.
 from users.forms import LoginForm, RegisterForm
-from users.models import UserProfile
+from users.models import UserProfile, EmailVerifyRecord
+from utils.email_send import send_register_email
 
 
 class CustomBackend(ModelBackend):  # 继承认证类,diy它
@@ -56,16 +57,34 @@ class UserView(View):  # 新的login view. 继承了View类,它里面实现get p
 
 class RegisterView(View):
     def get(self, request):
-        register_form = RegisterForm()#实例化register表单
+        register_form = RegisterForm()  # 实例化register表单
         return render(request, 'register.html', {'register_form': register_form})
 
     def post(self, request):
-        register_form = RegisterForm()
+        register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             user_name = request.POST.get("email", "")  # 字典取值,如果无,赋值为空
             pass_word = request.POST.get("password", "")
             user_profile = UserProfile()
             user_profile.username = user_name
             user_profile.email = user_name
-            user_profile.password = make_password(pass_word) #密码加密存储
+            user_profile.password = make_password(pass_word)  # 密码加密存储
+            user_profile.is_active = False
             user_profile.save()
+
+            send_register_email(user_name, "register")
+            return render(request, 'login.html')
+        else:
+            return render(request, 'register.html', {'register_form': register_form})
+
+
+class ActiveView(View):#主要功能是修改user_profile里的is_active字段为1
+    def get(self, request,active_code):
+        all_reocrds = EmailVerifyRecord.objects.filter(code=active_code)
+        if all_reocrds:
+            for record in all_reocrds:
+                email = record.email
+                user = UserProfile.objects.get(email=email)
+                user.is_active = True
+                user.save()
+        return render(request, 'login.html')
