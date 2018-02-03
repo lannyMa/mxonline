@@ -1,3 +1,83 @@
-body{
-    background: #1da7ee;
+* {
+    margin: 0;
+    padding: 0;
 }
+
+.cl {
+    clear: both;
+}
+
+body {
+    font-family: "Microsoft YaHei", "SimSun";
+    height: 8888px;
+}
+
+.inner_c {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.header {
+    height: 58px;
+    background-color: #191D3A;
+}
+
+.header .logo {
+    float: left;
+    padding-left: 12px;
+    margin-right: 39px;
+    width: 174px;
+    height: 58px;
+}
+
+.header .logo a {
+    display: block;
+    width: 174px;
+    height: 58px;
+    background: url(images/logo.png) no-repeat;
+    text-indent: -999em;
+}
+
+.header .nav {
+    float: left;
+    width: 607px;
+    height: 58px;
+}
+
+.header .nav ul {
+    list-style: none;
+}
+
+.header .nav ul li {
+    float: left;
+    width: 100px;
+    height: 58px;
+    border-left: 1px solid #252947;
+}
+
+.header .nav ul li.last {
+    border-right: 1px solid #252947;
+}
+
+.header .nav ul li a {
+    display: block;
+    width: 100px;
+    height: 58px;
+    text-align: center;
+    line-height: 58px;
+    color: #818496;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.header .nav ul li a:hover {
+    background-color: #252947;
+    color: #E2E4ED;
+}
+
+.header .nav ul li.current a {
+    background-color: #252947;
+    color: #E2E4ED;
+}
+
+

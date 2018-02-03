@@ -1,11 +1,16 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}
+        后台
+    {% endblock %} - 在线网</title>
     {# 静态文件部分 #}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block custom_css %}
+
+    {% endblock %}
 </head>
 <body>
 
@@ -48,7 +53,24 @@
     </div>
 </div>
 
+{#面包屑路径 首页>课程列表#}
+{% block custom_bread %}
+    <div>
+        <ul>
+            <li><a href="">首页</a>></li>
+            <li>课程机构</li>
+        </ul>
+    </div>
+{% endblock %}
 
-<script src="/static/js/jquery-3.3.1.min.js"></script>
+{#内容#}
+{% block content %}
+
+{% endblock %}
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+{% block custom_js %}
+
+{% endblock %}
 </body>
 </html>

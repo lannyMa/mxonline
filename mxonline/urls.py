@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 import xadmin
+from mxonline.settings import MEDIA_ROOT
 from users import views
-
+from organization import views as org_views
+from django.views.static import serve
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name="index"),
     path('login/', views.UserView.as_view(), name="login"),
@@ -31,4 +33,10 @@ urlpatterns = [
     # url(r'^active/(?P<active_code>.*)/$', views.ActiveView.as_view(), name="active"),
     path('xadmin/', xadmin.site.urls),
     path('captcha/', include('captcha.urls')),
+
+    # 课程机构
+    path('org_list/', org_views.OrgView.as_view(), name="org_list"),
+    ## 配置上传文件的访问处理函数
+    # path('media/<slug:path>/', serve, {'document_root':MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)', serve, {'document_root':MEDIA_ROOT}),
 ]
