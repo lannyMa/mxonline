@@ -35,3 +35,9 @@ def send_register_email(email, send_type="register"):#根据注册类型: 注册
         send_status = send_mail(email_title, email_body, EMAIL_FROM, [email,])
         if send_status:
             pass
+    elif send_type == "forget": # forget_pwd.html后发密码重置链接
+        email_title = "后台在线密码重置链接"
+        email_body = "后台在线系统密码重置链接: http://127.0.0.1:8000/reset_pwd/{}".format(code)
+        send_status = send_mail(email_title, email_body, EMAIL_FROM, [email,])
+        if send_status:
+            pass

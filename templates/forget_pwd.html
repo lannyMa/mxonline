@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>forget_pwd</title>
+</head>
+<body>
+<body>
+<div>
+    <h1>找回密码</h1>
+    <form action="/forget_pwd/" method="post">
+        <p><input type="text" name="email" value="{{ forget_form.email.value }}" placeholder="your email"></p>
+        <p>{{ forget_form.captcha }}</p>
+        <p><input type="submit"></p>
+        {% csrf_token %}
+    </form>
+    {{ msg }}
+</div>
+</body>
+</html>

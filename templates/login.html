@@ -12,6 +12,7 @@
         <p><input type="submit"></p>
         {% csrf_token %}
     </form>
+    <p><a href="/forget_pwd/">忘记密码</a></p>
     {% if login_form.errors.username %}
         {% for key,value in login_form.errors.items %}
             {{ key }}: {{ value }}
