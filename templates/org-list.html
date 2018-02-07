@@ -16,22 +16,32 @@
 {% block content %}
     {#    机构类别    #}
     <div>
-        <p>机构类别: 全部 培训结构 高校 个人</p>
+        <strong>机构类别</strong>:
+        <a href="?city={{ city_id }}"><span class="{% ifequal category '' %}bgColor{% endifequal %}">全部</span></a>
+        <a href="?ct=pxjg&city={{ city_id }}"><span class="{% ifequal category 'pxjg' %}bgColor{% endifequal %}">培训机构</span></a>
+        <a href="?ct=gx&city={{ city_id }}"><span class="{% ifequal category 'gx' %}bgColor{% endifequal %}">高校</span></a>
+        <a href="?ct=gr&city={{ city_id }}"><span class="{% ifequal category 'gr' %}bgColor{% endifequal %}">个人</span></a>
     </div>
 
     {#    城市    #}
     <div>
-        <p>城市:{% for city in all_citys %}
-            {{ city.name }}
-        {% endfor %}
+        <p><strong>城市:</strong>
+            <span class="{% ifequal city_id '' %}bgColor{% endifequal %}"><a href="?ct={{ category }}">全部</a></span>
+            {% for city in all_citys %}
+                <span class="{% ifequal city_id city.id|stringformat:'i' %}bgColor{% endifequal %}"><a
+                        href="?city={{ city.id }}&ct={{ category }}">{{ city.name }}</a></span>
+            {% endfor %}
         </p>
     </div>
     {#    课程机构    #}
     <div>
+        <strong>共{{ org_count }}家</strong>
         <ul>
-            {% for course_org in all_orgs %}
+            {% for course_org in all_orgs.object_list %}
                 <li><img src="{{ MEDIA_URL }}{{ course_org.image }}" alt=""></li>
+                <li>{{ course_org }}</li>
             {% endfor %}
         </ul>
+        <p>{{ all_orgs.render }}</p>
     </div>
 {% endblock %}
